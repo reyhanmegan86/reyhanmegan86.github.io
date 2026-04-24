@@ -210,6 +210,13 @@ a {
   -webkit-text-fill-color: transparent;
 }
 
+#typing-text {
+  display: inline-block;
+  min-height: 1.2em;
+  min-width: 22ch;
+  vertical-align: top;
+}
+
 .hero-desc {
   max-width: 640px;
   color: var(--muted);
@@ -489,19 +496,44 @@ a {
 }
 
 .contact-intro {
+  margin: 0 0 1rem;
+  font-size: 1.02rem;
   color: var(--muted);
 }
 
+.contact-quick-actions {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.contact-quick-actions .btn {
+  min-height: 46px;
+  padding-inline: 1rem;
+}
+
+.contact .container {
+  max-width: 860px;
+}
+
 .contact-form {
-  padding: 1.2rem;
+  padding: 1.35rem;
   display: grid;
-  gap: 0.9rem;
-  max-width: 720px;
+  gap: 1rem;
+  max-width: 100%;
+  position: relative;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--card) 88%, transparent), color-mix(in srgb, var(--bg-soft) 45%, transparent));
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .contact-form label {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.5rem;
+  font-size: 1.02rem;
   font-weight: 600;
 }
 
@@ -516,21 +548,47 @@ a {
 .contact-form textarea {
   width: 100%;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: transparent;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg) 50%, transparent);
   color: var(--text);
   font: inherit;
-  padding: 0.75rem 0.9rem;
+  padding: 0.82rem 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.contact-form textarea {
+  min-height: 145px;
+  resize: vertical;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: color-mix(in srgb, var(--muted) 82%, #fff 18%);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  outline: 2px solid color-mix(in srgb, var(--primary) 65%, white);
-  outline-offset: 1px;
+  outline: none;
+  border-color: color-mix(in srgb, var(--primary) 65%, white);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent);
+  background: color-mix(in srgb, var(--bg-soft) 45%, transparent);
+}
+
+.contact-form .btn {
+  margin-top: 0.2rem;
+  min-height: 50px;
+  letter-spacing: 0.2px;
+  border-radius: 14px;
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--primary) 38%, transparent);
+}
+
+.contact-form .btn:hover {
+  box-shadow: 0 14px 32px color-mix(in srgb, var(--primary) 46%, transparent);
 }
 
 #form-status {
-  min-height: 1.4rem;
+  min-height: 1.5rem;
+  font-weight: 500;
   color: var(--success);
 }
 
@@ -703,6 +761,10 @@ a {
   .project-actions {
     flex-wrap: wrap;
   }
+
+  .contact-quick-actions .btn {
+    flex: 1 1 180px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -712,6 +774,10 @@ a {
 
   .hero h1 {
     font-size: clamp(1.7rem, 8.5vw, 2.2rem);
+  }
+
+  #typing-text {
+    min-width: 16ch;
   }
 
   .hero-badge {

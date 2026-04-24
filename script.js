@@ -27,6 +27,9 @@ const ANALYTICS_CONFIG = {
   googleAnalyticsId: "",
 };
 
+const FORM_COOLDOWN_MS = 15000;
+const FORM_COOLDOWN_KEY = "contactFormLastSubmitAt";
+
 let isMenuOpen = false;
 const words = ["JavaScript Developer", "Front-End Specialist", "UI Enthusiast"];
 let wordIndex = 0;
@@ -103,17 +106,17 @@ function runTypingAnimation() {
     typingText.textContent = currentWord.slice(0, charIndex--);
   }
 
-  let delay = deleting ? 60 : 100;
+  let delay = deleting ? 95 : 140;
 
   if (!deleting && charIndex === currentWord.length + 1) {
     deleting = true;
-    delay = 1400;
+    delay = 2000;
   }
 
   if (deleting && charIndex === -1) {
     deleting = false;
     wordIndex = (wordIndex + 1) % words.length;
-    delay = 350;
+    delay = 550;
   }
 
   setTimeout(runTypingAnimation, delay);
@@ -235,6 +238,16 @@ if (form && formStatus) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
+    const lastSubmitAt = Number(localStorage.getItem(FORM_COOLDOWN_KEY) || 0);
+    const now = Date.now();
+    const remainingMs = FORM_COOLDOWN_MS - (now - lastSubmitAt);
+    if (remainingMs > 0) {
+      const remainingSeconds = Math.ceil(remainingMs / 1000);
+      formStatus.textContent = `Tunggu ${remainingSeconds} detik sebelum kirim pesan lagi.`;
+      formStatus.style.color = "#ff8f8f";
+      return;
+    }
+
     const name = form.name.value.trim();
     const email = form.email.value.trim();
     const message = form.message.value.trim();
@@ -278,6 +291,8 @@ if (form && formStatus) {
         reply_to: email,
         sent_at: new Date().toLocaleString("id-ID"),
       });
+
+      localStorage.setItem(FORM_COOLDOWN_KEY, String(Date.now()));
 
       formStatus.textContent =
         "Pesan berhasil dikirim ke Gmail Anda. Cek Inbox, Promotions, dan Spam.";
