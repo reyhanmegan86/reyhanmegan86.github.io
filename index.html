@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portofolio Reyhan - Front-End Developer yang membangun website modern, cepat, dan berfokus pada pengalaman pengguna."
+    />
+    <title>Portofolio Reyhan | JavaScript Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <header class="header" id="home">
+      <nav class="container nav">
+        <a href="#home" class="logo">
+          Rey<span>han</span>
+        </a>
+
+        <button class="nav-toggle" aria-label="Buka menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul class="nav-menu">
+          <li><a href="#about">Tentang</a></li>
+          <li><a href="#skills">Skill</a></li>
+          <li><a href="#projects">Proyek</a></li>
+          <li><a href="#services">Layanan</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" aria-label="Ganti tema">🌙</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero section">
+        <div class="container hero-grid">
+          <div class="hero-content reveal">
+            <p class="hero-badge">Available for freelance</p>
+            <h1>
+              Halo, saya <span>Reyhan</span><br />
+              <strong id="typing-text"></strong>
+            </h1>
+            <p class="hero-desc">
+              Saya membuat website modern yang cepat, responsif, dan siap membantu bisnis tampil lebih profesional di internet.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">Lihat Proyek</a>
+              <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+            </div>
+            <div class="hero-stats">
+              <article>
+                <h3 class="counter" data-target="45">0</h3>
+                <p>Project Selesai</p>
+              </article>
+              <article>
+                <h3 class="counter" data-target="28">0</h3>
+                <p>Klien Puas</p>
+              </article>
+              <article>
+                <h3 class="counter" data-target="4">0</h3>
+                <p>Tahun Pengalaman</p>
+              </article>
+            </div>
+          </div>
+          <div class="hero-card reveal delay-1">
+            <div class="avatar">R</div>
+            <h2>Reyhan</h2>
+            <p>JavaScript Developer</p>
+            <ul>
+              <li>⚡ Website Cepat</li>
+              <li>📱 100% Responsif</li>
+              <li>🎯 Fokus Konversi</li>
+            </ul>
+            <a class="btn btn-secondary" href="https://wa.me/+6281993816983" target="_blank" rel="noreferrer">Chat WhatsApp</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container about reveal">
+          <div>
+            <h2 class="section-title">Tentang Saya</h2>
+            <p>
+              Saya seorang web developer yang fokus di JavaScript, HTML, dan CSS. Saya senang membangun tampilan yang bersih, interaktif, dan mudah digunakan.
+            </p>
+            <p>
+              Tujuan saya bukan hanya membuat website terlihat bagus, tetapi juga membantu meningkatkan performa dan kepercayaan pengguna.
+            </p>
+          </div>
+          <div class="about-box">
+            <h3>Highlight</h3>
+            <ul>
+              <li>✅ Optimasi performa dan SEO dasar</li>
+              <li>✅ UI modern dengan animasi halus</li>
+              <li>✅ Integrasi API dan fitur dinamis</li>
+              <li>✅ Struktur kode rapi dan mudah dirawat</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="container reveal">
+          <h2 class="section-title">Skill Utama</h2>
+          <div class="skills-grid">
+            <article class="skill-card">
+              <h3>HTML5</h3>
+              <div class="progress"><span style="width: 95%"></span></div>
+            </article>
+            <article class="skill-card">
+              <h3>CSS3</h3>
+              <div class="progress"><span style="width: 90%"></span></div>
+            </article>
+            <article class="skill-card">
+              <h3>JavaScript</h3>
+              <div class="progress"><span style="width: 92%"></span></div>
+            </article>
+            <article class="skill-card">
+              <h3>UI/UX</h3>
+              <div class="progress"><span style="width: 85%"></span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="container reveal">
+          <div class="section-top">
+            <h2 class="section-title">Proyek Pilihan</h2>
+            <div class="filters">
+              <button class="filter-btn active" data-filter="all">Semua</button>
+              <button class="filter-btn" data-filter="website">Website</button>
+              <button class="filter-btn" data-filter="app">Web App</button>
+              <button class="filter-btn" data-filter="landing">Landing Page</button>
+            </div>
+          </div>
+          <div class="project-grid">
+            <article class="project-card" data-category="website">
+              <h3>Company Profile Modern</h3>
+              <p>Website perusahaan dengan desain premium, SEO-ready, dan form lead generation.</p>
+              <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+            </article>
+            <article class="project-card" data-category="app">
+              <h3>Dashboard Admin</h3>
+              <p>Dashboard data interaktif dengan chart, pencarian cepat, dan mode gelap.</p>
+              <div class="tags"><span>JavaScript</span><span>Chart</span><span>UI</span></div>
+            </article>
+            <article class="project-card" data-category="landing">
+              <h3>Landing Product Launch</h3>
+              <p>Landing page fokus konversi dengan CTA kuat dan testimonial section.</p>
+              <div class="tags"><span>Marketing</span><span>A/B Test</span><span>Responsive</span></div>
+            </article>
+            <article class="project-card" data-category="website">
+              <h3>Personal Brand Site</h3>
+              <p>Website personal branding untuk content creator dengan blog dan portfolio.</p>
+              <div class="tags"><span>Branding</span><span>SEO</span><span>Performance</span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container reveal">
+          <h2 class="section-title">Layanan</h2>
+          <div class="service-grid">
+            <article>
+              <h3>Website Development</h3>
+              <p>Pembuatan website profesional dari nol sesuai kebutuhan bisnis Anda.</p>
+            </article>
+            <article>
+              <h3>Redesign Website</h3>
+              <p>Upgrade tampilan website lama agar lebih modern, cepat, dan mobile-friendly.</p>
+            </article>
+            <article>
+              <h3>Maintenance</h3>
+              <p>Perawatan rutin, perbaikan bug, dan optimasi performa secara berkala.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div class="container reveal">
+          <h2 class="section-title">Kontak Saya</h2>
+          <p class="contact-intro">Punya ide proyek? Kirim pesan lewat form di bawah ini.</p>
+          <form id="contact-form" class="contact-form">
+            <label>
+              Nama
+              <input type="text" id="name" name="name" placeholder="Nama kamu" required />
+            </label>
+            <label>
+              Email
+              <input type="email" id="email" name="email" placeholder="email@contoh.com" required />
+            </label>
+            <label>
+              Pesan
+              <textarea id="message" name="message" rows="5" placeholder="Tulis kebutuhan proyek kamu..." required></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+            <p id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <button class="back-to-top" aria-label="Kembali ke atas">↑</button>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> Reyhan. All rights reserved.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" aria-label="GitHub">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
