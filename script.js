@@ -24,10 +24,10 @@ const EMAILJS_CONFIG = {
 };
 
 const ANALYTICS_CONFIG = {
-  googleAnalyticsId: "",
+  googleAnalyticsId: "G-S5WJZXEEWQ",
 };
 
-const FORM_COOLDOWN_MS = 15000;
+const FORM_COOLDOWN_MS = 30000;
 const FORM_COOLDOWN_KEY = "contactFormLastSubmitAt";
 
 let isMenuOpen = false;
@@ -239,7 +239,9 @@ filterButtons.forEach((button) => {
 if (form && formStatus) {
   const submitBtn = form.querySelector('button[type="submit"]');
   const honeypotInput = form.querySelector("#website");
+  const defaultSubmitText = submitBtn ? submitBtn.textContent : "Kirim Pesan";
   const hasEmailJs = typeof window.emailjs !== "undefined";
+  let cooldownTimer = null;
   const isConfigReady =
     EMAILJS_CONFIG.publicKey &&
     EMAILJS_CONFIG.serviceId &&
@@ -260,13 +262,50 @@ if (form && formStatus) {
     });
   }
 
+  function getRemainingCooldownMs() {
+    const lastSubmitAt = Number(localStorage.getItem(FORM_COOLDOWN_KEY) || 0);
+    return Math.max(0, FORM_COOLDOWN_MS - (Date.now() - lastSubmitAt));
+  }
+
+  function stopCooldownTimer() {
+    if (cooldownTimer) {
+      clearInterval(cooldownTimer);
+      cooldownTimer = null;
+    }
+  }
+
+  function renderCooldownState() {
+    if (!submitBtn) return;
+    const remainingMs = getRemainingCooldownMs();
+    if (remainingMs > 0) {
+      const remainingSeconds = Math.ceil(remainingMs / 1000);
+      submitBtn.disabled = true;
+      submitBtn.textContent = `Kirim lagi (${remainingSeconds}s)`;
+      return;
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = defaultSubmitText;
+    stopCooldownTimer();
+  }
+
+  function startCooldown() {
+    localStorage.setItem(FORM_COOLDOWN_KEY, String(Date.now()));
+    renderCooldownState();
+    stopCooldownTimer();
+    cooldownTimer = setInterval(renderCooldownState, 500);
+  }
+
+  renderCooldownState();
+  if (getRemainingCooldownMs() > 0) {
+    cooldownTimer = setInterval(renderCooldownState, 500);
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     trackEvent("contact_form_submit_attempt", { method: "emailjs" });
 
-    const lastSubmitAt = Number(localStorage.getItem(FORM_COOLDOWN_KEY) || 0);
-    const now = Date.now();
-    const remainingMs = FORM_COOLDOWN_MS - (now - lastSubmitAt);
+    const remainingMs = getRemainingCooldownMs();
     if (remainingMs > 0) {
       const remainingSeconds = Math.ceil(remainingMs / 1000);
       trackEvent("contact_form_submit_blocked_cooldown", {
@@ -308,7 +347,7 @@ if (form && formStatus) {
     }
 
     try {
-      if (submitBtn) submitBtn.disabled = true;
+      startCooldown();
       formStatus.textContent = "Mengirim pesan...";
       formStatus.style.color = "";
 
@@ -321,7 +360,6 @@ if (form && formStatus) {
         sent_at: new Date().toLocaleString("id-ID"),
       });
 
-      localStorage.setItem(FORM_COOLDOWN_KEY, String(Date.now()));
       trackEvent("contact_form_submit_success", {
         method: "emailjs",
       });
@@ -354,7 +392,7 @@ if (form && formStatus) {
       });
       formStatus.style.color = "#ff8f8f";
     } finally {
-      if (submitBtn) submitBtn.disabled = false;
+      renderCooldownState();
     }
   });
 }
