@@ -35,6 +35,7 @@ body {
   background: radial-gradient(circle at top right, #1a2751, var(--bg) 40%);
   color: var(--text);
   line-height: 1.6;
+  overflow-x: hidden;
   transition: background 0.35s ease, color 0.35s ease;
 }
 
@@ -417,6 +418,12 @@ a {
   padding: 0.75rem 0.9rem;
 }
 
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--primary) 65%, white);
+  outline-offset: 1px;
+}
+
 #form-status {
   min-height: 1.4rem;
   color: var(--success);
@@ -488,7 +495,21 @@ a {
   transition-delay: 0.1s;
 }
 
+@media (min-width: 1200px) {
+  .section {
+    padding: 6rem 0;
+  }
+
+  .hero-grid {
+    gap: 2.5rem;
+  }
+}
+
 @media (max-width: 920px) {
+  .section {
+    padding: 4rem 0;
+  }
+
   .hero-grid,
   .about {
     grid-template-columns: 1fr;
@@ -502,9 +523,25 @@ a {
   .skills-grid {
     grid-template-columns: 1fr;
   }
+
+  .hero-card {
+    max-width: 620px;
+  }
 }
 
 @media (max-width: 760px) {
+  .container {
+    width: min(1120px, 94%);
+  }
+
+  .nav {
+    min-height: 68px;
+  }
+
+  .section-title {
+    margin-bottom: 1rem;
+  }
+
   .nav-toggle {
     display: block;
   }
@@ -526,6 +563,11 @@ a {
     transition: all 0.2s ease;
   }
 
+  .nav-menu a {
+    display: block;
+    padding: 0.5rem 0.25rem;
+  }
+
   .nav-menu.open {
     opacity: 1;
     pointer-events: auto;
@@ -534,5 +576,60 @@ a {
 
   .hero-actions {
     flex-wrap: wrap;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 180px;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-stats article:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .contact-form {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3.25rem 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.7rem, 8.5vw, 2.2rem);
+  }
+
+  .hero-badge {
+    font-size: 0.75rem;
+  }
+
+  .about-box,
+  .skill-card,
+  .project-card,
+  .service-grid article,
+  .contact-form {
+    border-radius: 14px;
+  }
+
+  .contact-form {
+    padding: 1rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .cursor-glow {
+    display: none;
   }
 }
