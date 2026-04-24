@@ -61,6 +61,11 @@ function initAnalytics() {
   gtag("config", id);
 }
 
+function trackEvent(eventName, params = {}) {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", eventName, params);
+}
+
 initAnalytics();
 
 if (navToggle && navMenu) {
@@ -70,6 +75,26 @@ if (navToggle && navMenu) {
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
     if (isMenuOpen && navMenu && navToggle) toggleMenu();
+  });
+});
+
+const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+whatsappLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    trackEvent("cta_click_whatsapp", {
+      location: link.closest("#contact") ? "contact_section" : "hero_or_other",
+      link_url: link.href,
+    });
+  });
+});
+
+const bookingLinks = document.querySelectorAll('a[href*="calendly.com"], a[href*="calendar.google.com"]');
+bookingLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    trackEvent("cta_click_booking", {
+      location: link.closest("#contact") ? "contact_section" : "hero_or_other",
+      link_url: link.href,
+    });
   });
 });
 
@@ -237,12 +262,16 @@ if (form && formStatus) {
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    trackEvent("contact_form_submit_attempt", { method: "emailjs" });
 
     const lastSubmitAt = Number(localStorage.getItem(FORM_COOLDOWN_KEY) || 0);
     const now = Date.now();
     const remainingMs = FORM_COOLDOWN_MS - (now - lastSubmitAt);
     if (remainingMs > 0) {
       const remainingSeconds = Math.ceil(remainingMs / 1000);
+      trackEvent("contact_form_submit_blocked_cooldown", {
+        remaining_seconds: remainingSeconds,
+      });
       formStatus.textContent = `Tunggu ${remainingSeconds} detik sebelum kirim pesan lagi.`;
       formStatus.style.color = "#ff8f8f";
       return;
@@ -293,6 +322,9 @@ if (form && formStatus) {
       });
 
       localStorage.setItem(FORM_COOLDOWN_KEY, String(Date.now()));
+      trackEvent("contact_form_submit_success", {
+        method: "emailjs",
+      });
 
       formStatus.textContent =
         "Pesan berhasil dikirim ke Gmail Anda. Cek Inbox, Promotions, dan Spam.";
@@ -315,6 +347,11 @@ if (form && formStatus) {
       } else {
         formStatus.textContent = `Gagal mengirim (${errorStatus}): ${errorText}`;
       }
+      trackEvent("contact_form_submit_error", {
+        method: "emailjs",
+        error_status: errorStatus,
+        error_text: String(errorText).slice(0, 120),
+      });
       formStatus.style.color = "#ff8f8f";
     } finally {
       if (submitBtn) submitBtn.disabled = false;
