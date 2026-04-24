@@ -7,7 +7,24 @@
       name="description"
       content="Portofolio Reyhan - Front-End Developer yang membangun website modern, cepat, dan berfokus pada pengalaman pengguna."
     />
+    <meta name="author" content="Reyhan" />
+    <meta property="og:title" content="Portofolio Reyhan | JavaScript Developer" />
+    <meta
+      property="og:description"
+      content="Website portofolio modern dengan project, testimoni, dan kontak langsung."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.github.io/" />
+    <meta property="og:image" content="https://example.github.io/preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portofolio Reyhan | JavaScript Developer" />
+    <meta
+      name="twitter:description"
+      content="Front-end developer yang fokus pada website cepat, responsif, dan menarik."
+    />
+    <meta name="twitter:image" content="https://example.github.io/preview.png" />
     <title>Portofolio Reyhan | JavaScript Developer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,6 +34,12 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="page-loader" id="page-loader" aria-hidden="true">
+      <div class="loader-card">
+        <div class="loader-shimmer"></div>
+      </div>
+    </div>
+
     <div class="cursor-glow" aria-hidden="true"></div>
     <header class="header" id="home">
       <nav class="container nav">
@@ -59,6 +82,7 @@
             <div class="hero-actions">
               <a href="#projects" class="btn btn-primary">Lihat Proyek</a>
               <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+              <a href="assets/cv reyhan 2026.pdf" class="btn btn-secondary" download>Download CV</a>
             </div>
             <div class="hero-stats">
               <article>
@@ -149,24 +173,67 @@
           </div>
           <div class="project-grid">
             <article class="project-card" data-category="website">
+              <div class="project-image">Company Profile</div>
               <h3>Company Profile Modern</h3>
               <p>Website perusahaan dengan desain premium, SEO-ready, dan form lead generation.</p>
               <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              <div class="project-actions">
+                <a href="#" target="_blank" rel="noreferrer">Live Demo</a>
+                <a href="#" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
             </article>
             <article class="project-card" data-category="app">
+              <div class="project-image">Admin Dashboard</div>
               <h3>Dashboard Admin</h3>
               <p>Dashboard data interaktif dengan chart, pencarian cepat, dan mode gelap.</p>
               <div class="tags"><span>JavaScript</span><span>Chart</span><span>UI</span></div>
+              <div class="project-actions">
+                <a href="#" target="_blank" rel="noreferrer">Live Demo</a>
+                <a href="#" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
             </article>
             <article class="project-card" data-category="landing">
+              <div class="project-image">Product Landing</div>
               <h3>Landing Product Launch</h3>
               <p>Landing page fokus konversi dengan CTA kuat dan testimonial section.</p>
               <div class="tags"><span>Marketing</span><span>A/B Test</span><span>Responsive</span></div>
+              <div class="project-actions">
+                <a href="#" target="_blank" rel="noreferrer">Live Demo</a>
+                <a href="#" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
             </article>
             <article class="project-card" data-category="website">
+              <div class="project-image">Personal Brand</div>
               <h3>Personal Brand Site</h3>
               <p>Website personal branding untuk content creator dengan blog dan portfolio.</p>
               <div class="tags"><span>Branding</span><span>SEO</span><span>Performance</span></div>
+              <div class="project-actions">
+                <a href="#" target="_blank" rel="noreferrer">Live Demo</a>
+                <a href="#" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="testimonials">
+        <div class="container reveal">
+          <h2 class="section-title">Testimoni Klien</h2>
+          <div class="testimonials-grid">
+            <article>
+              <p>"Proses pengerjaan cepat, komunikasi enak, dan hasil website jauh lebih profesional."</p>
+              <h3>Arif Rahman</h3>
+              <span>Owner Brand Lokal</span>
+            </article>
+            <article>
+              <p>"Performa website meningkat, tampilan mobile rapi, dan conversion rate naik."</p>
+              <h3>Nabila Putri</h3>
+              <span>Digital Marketer</span>
+            </article>
+            <article>
+              <p>"Sangat direkomendasikan untuk pembuatan landing page yang fokus hasil."</p>
+              <h3>Dimas Alfarizi</h3>
+              <span>Startup Founder</span>
             </article>
           </div>
         </div>
@@ -197,6 +264,15 @@
           <h2 class="section-title">Kontak Saya</h2>
           <p class="contact-intro">Punya ide proyek? Kirim pesan lewat form di bawah ini.</p>
           <form id="contact-form" class="contact-form">
+            <input
+              type="text"
+              name="website"
+              id="website"
+              class="honeypot"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <label>
               Nama
               <input type="text" id="name" name="name" placeholder="Nama kamu" required />

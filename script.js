@@ -7,6 +7,7 @@ const form = document.querySelector("#contact-form");
 const formStatus = document.querySelector("#form-status");
 const year = document.querySelector("#year");
 const cursorGlow = document.querySelector(".cursor-glow");
+const pageLoader = document.querySelector("#page-loader");
 
 const navLinks = document.querySelectorAll(".nav-menu a");
 const sections = document.querySelectorAll("main section[id]");
@@ -22,6 +23,10 @@ const EMAILJS_CONFIG = {
   recipientEmail: "meganreyhan72@gmail.com",
 };
 
+const ANALYTICS_CONFIG = {
+  googleAnalyticsId: "",
+};
+
 let isMenuOpen = false;
 const words = ["JavaScript Developer", "Front-End Specialist", "UI Enthusiast"];
 let wordIndex = 0;
@@ -33,6 +38,27 @@ function toggleMenu() {
   navMenu.classList.toggle("open", isMenuOpen);
   navToggle.setAttribute("aria-expanded", String(isMenuOpen));
 }
+
+function initAnalytics() {
+  const id = ANALYTICS_CONFIG.googleAnalyticsId.trim();
+  if (!id) return;
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+  document.head.appendChild(script);
+
+  gtag("js", new Date());
+  gtag("config", id);
+}
+
+initAnalytics();
 
 if (navToggle && navMenu) {
   navToggle.addEventListener("click", toggleMenu);
@@ -184,6 +210,7 @@ filterButtons.forEach((button) => {
 
 if (form && formStatus) {
   const submitBtn = form.querySelector('button[type="submit"]');
+  const honeypotInput = form.querySelector("#website");
   const hasEmailJs = typeof window.emailjs !== "undefined";
   const isConfigReady =
     EMAILJS_CONFIG.publicKey &&
@@ -214,6 +241,13 @@ if (form && formStatus) {
 
     if (!name || !email || !message) {
       formStatus.textContent = "Mohon lengkapi semua field terlebih dahulu.";
+      formStatus.style.color = "#ff8f8f";
+      return;
+    }
+
+    // Anti-spam: bot umumnya mengisi field tersembunyi ini.
+    if (honeypotInput && honeypotInput.value.trim() !== "") {
+      formStatus.textContent = "Request terdeteksi tidak valid.";
       formStatus.style.color = "#ff8f8f";
       return;
     }
@@ -282,4 +316,10 @@ if (cursorGlow) {
 
 if (year) {
   year.textContent = String(new Date().getFullYear());
+}
+
+if (pageLoader) {
+  window.addEventListener("load", () => {
+    pageLoader.classList.add("hide");
+  });
 }
