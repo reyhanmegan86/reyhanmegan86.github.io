@@ -8,6 +8,7 @@ const formStatus = document.querySelector("#form-status");
 const year = document.querySelector("#year");
 const cursorGlow = document.querySelector(".cursor-glow");
 const pageLoader = document.querySelector("#page-loader");
+const heroCard = document.querySelector(".hero-card");
 
 const navLinks = document.querySelectorAll(".nav-menu a");
 const sections = document.querySelectorAll("main section[id]");
@@ -67,6 +68,20 @@ function trackEvent(eventName, params = {}) {
 }
 
 initAnalytics();
+
+const pressableElements = document.querySelectorAll(
+  ".btn, .theme-toggle, .nav-toggle, .back-to-top, .filter-btn"
+);
+pressableElements.forEach((element) => {
+  element.addEventListener("pointerdown", () => {
+    element.classList.add("is-pressed");
+  });
+  ["pointerup", "pointerleave", "pointercancel"].forEach((eventName) => {
+    element.addEventListener(eventName, () => {
+      element.classList.remove("is-pressed");
+    });
+  });
+});
 
 if (navToggle && navMenu) {
   navToggle.addEventListener("click", toggleMenu);
@@ -151,6 +166,21 @@ if (typingText) {
   runTypingAnimation();
 }
 
+if (heroCard && window.matchMedia("(min-width: 1024px)").matches) {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion) {
+    heroCard.addEventListener("pointermove", (event) => {
+      const rect = heroCard.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      heroCard.style.transform = `perspective(700px) rotateX(${-y * 4}deg) rotateY(${x * 5}deg) translateY(-2px)`;
+    });
+    heroCard.addEventListener("pointerleave", () => {
+      heroCard.style.transform = "";
+    });
+  }
+}
+
 function updateActiveSection() {
   let current = "";
   sections.forEach((section) => {
@@ -178,6 +208,11 @@ const revealObserver = new IntersectionObserver(
 );
 
 reveals.forEach((el) => revealObserver.observe(el));
+reveals.forEach((el, index) => {
+  if (!el.classList.contains("delay-1")) {
+    el.style.transitionDelay = `${Math.min(index * 40, 220)}ms`;
+  }
+});
 
 const counterObserver = new IntersectionObserver(
   (entries, observer) => {
