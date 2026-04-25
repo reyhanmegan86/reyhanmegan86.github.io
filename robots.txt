@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://reyhanmegan86.github.io/sitemap.xml
+User-agent: *
+Allow: /
+
+Sitemap: https://reyhanmegan86.github.io/sitemap.xml
