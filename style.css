@@ -455,6 +455,16 @@ textarea {
   padding: 1rem;
 }
 
+.skill-card h3 {
+  margin: 0;
+}
+
+.skill-card p {
+  margin: 0.5rem 0 0.8rem;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
 .progress {
   height: 10px;
   border-radius: 99px;
