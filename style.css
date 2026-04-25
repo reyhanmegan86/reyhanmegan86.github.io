@@ -391,9 +391,53 @@ textarea {
   padding: 1.1rem;
 }
 
+.about-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.about-lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.03rem;
+}
+
+.about-panel {
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.about-panel h3 {
+  margin: 0 0 0.6rem;
+}
+
+.about-panel ul {
+  margin: 0;
+  padding-left: 1.05rem;
+  color: var(--muted);
+}
+
+.about-panel li + li {
+  margin-top: 0.45rem;
+}
+
 .about-box ul {
   margin: 0;
   padding-left: 1rem;
+}
+
+.about-box p {
+  color: var(--muted);
+}
+
+.about-box h3 {
+  margin-top: 0;
+}
+
+.about-box h3 + p {
+  margin-top: 0.35rem;
 }
 
 .skills-grid,
@@ -523,8 +567,14 @@ textarea {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.service-link {
+  display: block;
+  height: 100%;
+}
+
 .service-grid article {
   padding: 1rem;
+  height: 100%;
 }
 
 .service-grid p {

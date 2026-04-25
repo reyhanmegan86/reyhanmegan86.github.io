@@ -69,8 +69,10 @@ const COPY = {
     heroCardConversion: "🎯 Fokus Konversi",
     heroCardWhatsApp: "Chat WhatsApp",
     aboutTitle: "Tentang Saya",
-    aboutDesc1: "Saya membantu brand, UMKM, dan personal bisnis tampil lebih kredibel lewat website modern yang cepat, rapi, dan fokus pada hasil.",
-    aboutDesc2: "Dengan pengalaman membangun landing page dan company profile, saya menggabungkan desain yang enak dilihat dengan struktur yang mudah dikembangkan untuk jangka panjang.",
+    aboutDesc1:
+      "Perkenalkan, saya Reyhan Megan Fulvianto, lahir di Depok pada tanggal 23 Agustus 2005. Saya merupakan lulusan SMK Yadika 12 dengan jurusan Teknik Komputer dan Jaringan (TKJ).",
+    aboutDesc2:
+      "Selama menempuh pendidikan, saya memiliki ketertarikan yang kuat di bidang teknologi, khususnya pada komputer dan jaringan. Saya telah mempelajari berbagai dasar penting, mulai dari memahami komponen hardware komputer hingga proses perakitan komputer secara mandiri. Saya juga terbiasa mengenali fungsi dan cara kerja setiap bagian dalam perangkat komputer, sehingga mampu melakukan troubleshooting sederhana. Selain itu, saya memiliki fokus dalam mempelajari jaringan dasar, termasuk konsep-konsep dasar jaringan komputer, konfigurasi sederhana, serta pemahaman tentang bagaimana perangkat saling terhubung dalam suatu sistem jaringan. Dengan bekal pengetahuan dan keterampilan yang saya miliki, saya terus berusaha untuk mengembangkan kemampuan di bidang teknologi, baik secara teori maupun praktik. Saya siap untuk belajar hal baru, bekerja secara tim maupun individu, serta berkontribusi dalam lingkungan kerja yang profesional.",
     aboutHighlightTitle: "Highlight",
     aboutPoint1: "✅ Optimasi performa dan SEO dasar",
     aboutPoint2: "✅ UI modern dengan animasi halus",
