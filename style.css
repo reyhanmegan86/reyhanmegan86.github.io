@@ -181,6 +181,7 @@ textarea {
 }
 
 .theme-toggle,
+.lang-toggle,
 .nav-toggle,
 .back-to-top {
   border: 1px solid var(--border);
@@ -191,6 +192,7 @@ textarea {
 }
 
 .theme-toggle:hover,
+.lang-toggle:hover,
 .nav-toggle:hover,
 .back-to-top:hover {
   transform: translateY(-2px);
@@ -201,6 +203,15 @@ textarea {
   width: 42px;
   height: 42px;
   border-radius: 12px;
+}
+
+.lang-toggle {
+  min-width: 58px;
+  height: 42px;
+  border-radius: 12px;
+  padding: 0 0.7rem;
+  font-weight: 700;
+  font-size: 0.82rem;
 }
 
 .nav-toggle {
@@ -547,6 +558,49 @@ textarea {
   color: var(--muted);
 }
 
+.comments-intro,
+.comments-footnote {
+  margin: 0;
+  color: var(--muted);
+}
+
+.comments-footnote {
+  margin-top: 0.9rem;
+  font-size: 0.92rem;
+}
+
+.github-comments-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.github-comment-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem;
+  background: var(--card);
+}
+
+.github-comment-card p {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.github-comment-meta {
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.github-comment-meta a {
+  font-weight: 600;
+}
+
 .contact-intro {
   margin: 0 0 1rem;
   font-size: 1.02rem;
@@ -630,6 +684,7 @@ textarea {
 .contact-form textarea:focus-visible,
 .btn:focus-visible,
 .theme-toggle:focus-visible,
+.lang-toggle:focus-visible,
 .nav-toggle:focus-visible,
 .back-to-top:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--primary) 70%, #fff);
@@ -720,6 +775,28 @@ textarea {
   transition-delay: 0.1s;
 }
 
+@keyframes languageSwapIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(1px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+body.language-switching [data-i18n],
+body.language-switching .hero-desc,
+body.language-switching .section-title,
+body.language-switching .contact-intro,
+body.language-switching #typing-text {
+  animation: languageSwapIn 0.38s var(--ease-standard);
+  will-change: transform, opacity, filter;
+}
+
 @media (min-width: 1200px) {
   .section {
     padding: 6rem 0;
@@ -742,7 +819,8 @@ textarea {
 
   .project-grid,
   .service-grid,
-  .testimonials-grid {
+  .testimonials-grid,
+  .github-comments-grid {
     grid-template-columns: 1fr;
   }
 
@@ -814,6 +892,7 @@ textarea {
   .project-card:hover,
   .btn:hover,
   .theme-toggle:hover,
+  .lang-toggle:hover,
   .nav-toggle:hover,
   .back-to-top:hover {
     transform: none;

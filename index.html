@@ -7,25 +7,29 @@
       name="description"
       content="Portofolio Reyhan - Front-End Developer yang membangun website modern, cepat, dan berfokus pada pengalaman pengguna."
     />
+    <meta name="robots" content="index, follow" />
     <meta name="author" content="Reyhan" />
+    <link rel="canonical" href="https://reyhanmegan86.github.io/" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Portofolio Reyhan" />
     <meta property="og:title" content="Portofolio Reyhan | JavaScript Developer" />
     <meta
       property="og:description"
       content="Website portofolio modern dengan project, testimoni, dan kontak langsung."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://reyhanmegan86.github.io
-    /" />
-    <meta property="og:image" content="https://reyhanmegan86.github.io
-    /preview.png" />
+    <meta property="og:url" content="https://reyhanmegan86.github.io/" />
+    <meta property="og:image" content="https://reyhanmegan86.github.io/preview.png" />
+    <meta property="og:image:alt" content="Preview website Portofolio Reyhan" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Portofolio Reyhan | JavaScript Developer" />
     <meta
       name="twitter:description"
       content="Front-end developer yang fokus pada website cepat, responsif, dan menarik."
     />
-    <meta name="twitter:image" content="https://reyhanmegan86.github.io
-    /preview.png" />
+    <meta name="twitter:image" content="https://reyhanmegan86.github.io/preview.png" />
+    <meta name="twitter:image:alt" content="Preview website Portofolio Reyhan" />
+    <meta name="twitter:url" content="https://reyhanmegan86.github.io/" />
     <title>Portofolio Reyhan | JavaScript Developer</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,13 +61,14 @@
         </button>
 
         <ul class="nav-menu">
-          <li><a href="#about">Tentang</a></li>
-          <li><a href="#skills">Skill</a></li>
-          <li><a href="#services">Layanan</a></li>
-          <li><a href="#contact">Kontak</a></li>
+          <li><a href="#about" data-i18n="navAbout">Tentang</a></li>
+          <li><a href="#skills" data-i18n="navSkills">Skill</a></li>
+          <li><a href="#services" data-i18n="navServices">Layanan</a></li>
+          <li><a href="#contact" data-i18n="navContact">Kontak</a></li>
         </ul>
 
         <div class="nav-actions">
+          <button class="lang-toggle" id="lang-toggle" aria-label="Ganti bahasa">EN</button>
           <button class="theme-toggle" aria-label="Ganti tema">🌙</button>
         </div>
       </nav>
@@ -73,31 +78,31 @@
       <section class="hero section">
         <div class="container hero-grid">
           <div class="hero-content reveal">
-            <p class="hero-badge">Available for freelance</p>
+            <p class="hero-badge" data-i18n="heroBadge">Available for freelance</p>
             <h1>
-              Halo, saya <span>Reyhan</span><br />
+              <span data-i18n="heroGreeting">Halo, saya</span> <span>Reyhan</span><br />
               <strong id="typing-text"></strong>
             </h1>
-            <p class="hero-desc">
+            <p class="hero-desc" data-i18n="heroDesc">
               Saya membuat website modern yang cepat, responsif, dan siap membantu bisnis tampil lebih profesional di internet.
             </p>
             <div class="hero-actions">
-              <a href="#services" class="btn btn-primary">Lihat Layanan</a>
-              <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
-              <a href="assets/cv reyhan 2026.pdf" class="btn btn-secondary" download>Download CV</a>
+              <a href="#services" class="btn btn-primary" data-i18n="heroBtnServices">Lihat Layanan</a>
+              <a href="#contact" class="btn btn-outline" data-i18n="heroBtnContact">Hubungi Saya</a>
+              <a href="assets/cv reyhan 2026.pdf" class="btn btn-secondary" download data-i18n="heroBtnCV">Download CV</a>
             </div>
             <div class="hero-stats">
               <article>
                 <h3 class="counter" data-target="45">0</h3>
-                <p>Project Selesai</p>
+                <p data-i18n="statProjects">Project Selesai</p>
               </article>
               <article>
                 <h3 class="counter" data-target="28">0</h3>
-                <p>Klien Puas</p>
+                <p data-i18n="statClients">Klien Puas</p>
               </article>
               <article>
                 <h3 class="counter" data-target="4">0</h3>
-                <p>Tahun Pengalaman</p>
+                <p data-i18n="statYears">Tahun Pengalaman</p>
               </article>
             </div>
           </div>
@@ -106,11 +111,11 @@
             <h2>Reyhan</h2>
             <p>JavaScript Developer</p>
             <ul>
-              <li>⚡ Website Cepat</li>
-              <li>📱 100% Responsif</li>
-              <li>🎯 Fokus Konversi</li>
+              <li data-i18n="heroCardFast">⚡ Website Cepat</li>
+              <li data-i18n="heroCardResponsive">📱 100% Responsif</li>
+              <li data-i18n="heroCardConversion">🎯 Fokus Konversi</li>
             </ul>
-            <a class="btn btn-secondary" href="https://wa.me/+6281993816983" target="_blank" rel="noreferrer">Chat WhatsApp</a>
+            <a class="btn btn-secondary" href="https://wa.me/+6281993816983" target="_blank" rel="noreferrer" data-i18n="heroCardWhatsApp">Chat WhatsApp</a>
           </div>
         </div>
       </section>
@@ -118,21 +123,21 @@
       <section class="section" id="about">
         <div class="container about reveal">
           <div>
-            <h2 class="section-title">Tentang Saya</h2>
-            <p>
-              Saya seorang web developer yang fokus di JavaScript, HTML, dan CSS. Saya senang membangun tampilan yang bersih, interaktif, dan mudah digunakan.
+            <h2 class="section-title" data-i18n="aboutTitle">Tentang Saya</h2>
+            <p data-i18n="aboutDesc1">
+              Saya membantu brand, UMKM, dan personal bisnis tampil lebih kredibel lewat website modern yang cepat, rapi, dan fokus pada hasil.
             </p>
-            <p>
-              Tujuan saya bukan hanya membuat website terlihat bagus, tetapi juga membantu meningkatkan performa dan kepercayaan pengguna.
+            <p data-i18n="aboutDesc2">
+              Dengan pengalaman membangun landing page dan company profile, saya menggabungkan desain yang enak dilihat dengan struktur yang mudah dikembangkan untuk jangka panjang.
             </p>
           </div>
           <div class="about-box">
-            <h3>Highlight</h3>
+            <h3 data-i18n="aboutHighlightTitle">Highlight</h3>
             <ul>
-              <li>✅ Optimasi performa dan SEO dasar</li>
-              <li>✅ UI modern dengan animasi halus</li>
-              <li>✅ Integrasi API dan fitur dinamis</li>
-              <li>✅ Struktur kode rapi dan mudah dirawat</li>
+              <li data-i18n="aboutPoint1">✅ Optimasi performa dan SEO dasar</li>
+              <li data-i18n="aboutPoint2">✅ UI modern dengan animasi halus</li>
+              <li data-i18n="aboutPoint3">✅ Integrasi API dan fitur dinamis</li>
+              <li data-i18n="aboutPoint4">✅ Struktur kode rapi dan mudah dirawat</li>
             </ul>
           </div>
         </div>
@@ -140,7 +145,7 @@
 
       <section class="section" id="skills">
         <div class="container reveal">
-          <h2 class="section-title">Skill Utama</h2>
+          <h2 class="section-title" data-i18n="skillsTitle">Skill Utama</h2>
           <div class="skills-grid">
             <article class="skill-card">
               <h3>HTML5</h3>
@@ -164,28 +169,59 @@
 
       <section class="section" id="services">
         <div class="container reveal">
-          <h2 class="section-title">Layanan</h2>
+          <h2 class="section-title" data-i18n="servicesTitle">Layanan</h2>
           <div class="service-grid">
             <article>
               <h3>Website Development</h3>
-              <p>Pembuatan website profesional dari nol sesuai kebutuhan bisnis Anda.</p>
+              <p data-i18n="serviceDesc1">Pembuatan website profesional dari nol sesuai kebutuhan bisnis Anda.</p>
             </article>
             <article>
               <h3>Redesign Website</h3>
-              <p>Upgrade tampilan website lama agar lebih modern, cepat, dan mobile-friendly.</p>
+              <p data-i18n="serviceDesc2">Upgrade tampilan website lama agar lebih modern, cepat, dan mobile-friendly.</p>
             </article>
             <article>
               <h3>Maintenance</h3>
-              <p>Perawatan rutin, perbaikan bug, dan optimasi performa secara berkala.</p>
+              <p data-i18n="serviceDesc3">Perawatan rutin, perbaikan bug, dan optimasi performa secara berkala.</p>
             </article>
           </div>
         </div>
       </section>
 
+      <section class="section" id="public-comments">
+        <div class="container reveal">
+          <div class="section-top">
+            <div>
+              <h2 class="section-title" data-i18n="commentsTitle">Komentar Publik</h2>
+              <p class="comments-intro" data-i18n="commentsIntro">
+                Feedback ini diambil dari GitHub Issues public agar transparan.
+              </p>
+            </div>
+            <a
+              class="btn btn-outline"
+              id="github-comment-link"
+              href="https://github.com/"
+              target="_blank"
+              rel="noreferrer"
+              data-i18n="commentsCta"
+            >
+              Tulis Komentar di GitHub
+            </a>
+          </div>
+          <div class="github-comments-grid" id="github-comments-list">
+            <article class="github-comment-card">
+              <p data-i18n="commentsLoading">Memuat komentar publik...</p>
+            </article>
+          </div>
+          <p class="comments-footnote" data-i18n="commentsFootnote">
+            Gunakan label "testimonial" di issue agar otomatis tampil di sini.
+          </p>
+        </div>
+      </section>
+
       <section class="section contact" id="contact">
         <div class="container reveal">
-          <h2 class="section-title">Kontak Saya</h2>
-          <p class="contact-intro">Punya ide proyek? Kirim pesan lewat form di bawah ini.</p>
+          <h2 class="section-title" data-i18n="contactTitle">Kontak Saya</h2>
+          <p class="contact-intro" data-i18n="contactIntro">Punya ide proyek? Kirim pesan lewat form di bawah ini.</p>
           <div class="contact-quick-actions">
             <a
               class="btn btn-secondary"
@@ -193,10 +229,10 @@
               target="_blank"
               rel="noreferrer"
             >
-              Chat WhatsApp
+              <span data-i18n="contactBtnWhatsapp">Chat WhatsApp</span>
             </a>
             <a class="btn btn-outline" href="https://calendly.com/reyhanmegan86/30min" target="_blank" rel="noreferrer">
-              Booking Kalender
+              <span data-i18n="contactBtnBooking">Booking Kalender</span>
             </a>
           </div>
           <form id="contact-form" class="contact-form">
@@ -210,29 +246,29 @@
               aria-hidden="true"
             />
             <label>
-              Nama
-              <input type="text" id="name" name="name" placeholder="Nama kamu" required />
+              <span data-i18n="formNameLabel">Nama</span>
+              <input type="text" id="name" name="name" placeholder="Nama kamu" data-i18n-placeholder="formNamePlaceholder" required />
             </label>
             <label>
-              Email
-              <input type="email" id="email" name="email" placeholder="email@contoh.com" required />
+              <span data-i18n="formEmailLabel">Email</span>
+              <input type="email" id="email" name="email" placeholder="email@contoh.com" data-i18n-placeholder="formEmailPlaceholder" required />
             </label>
             <label>
-              Pesan
-              <textarea id="message" name="message" rows="5" placeholder="Tulis kebutuhan proyek kamu..." required></textarea>
+              <span data-i18n="formMessageLabel">Pesan</span>
+              <textarea id="message" name="message" rows="5" placeholder="Tulis kebutuhan proyek kamu..." data-i18n-placeholder="formMessagePlaceholder" required></textarea>
             </label>
-            <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+            <button type="submit" class="btn btn-primary" data-i18n="formSubmit">Kirim Pesan</button>
             <p id="form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>
     </main>
 
-    <button class="back-to-top" aria-label="Kembali ke atas">↑</button>
+    <button class="back-to-top" aria-label="Kembali ke atas" data-i18n-aria-label="backToTopLabel">↑</button>
 
     <footer class="footer">
       <div class="container footer-inner">
-        <p>© <span id="year"></span> Reyhan. All rights reserved.</p>
+        <p data-i18n="footerRights">© <span id="year"></span> Reyhan. All rights reserved.</p>
         <div class="socials">
           <a href="https://www.instagram.com/ryhnmgnn/" aria-label="Instagram">Instagram</a>
           <a href="#" aria-label="LinkedIn">LinkedIn</a>
