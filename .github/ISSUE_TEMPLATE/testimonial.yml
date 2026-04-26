@@ -1,1 +1,20 @@
+name: Testimonial
+description: Kirim testimoni untuk ditampilkan di website
+title: "[Testimonial] "
+labels: ["testimonial"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Nama
+      placeholder: Nama kamu
+    validations:
+      required: true
 
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Testimoni
+      placeholder: Tulis pengalaman kamu...
+    validations:
+      required: true
