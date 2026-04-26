@@ -9,8 +9,6 @@ const formStatus = document.querySelector("#form-status");
 const cursorGlow = document.querySelector(".cursor-glow");
 const pageLoader = document.querySelector("#page-loader");
 const heroCard = document.querySelector(".hero-card");
-const githubCommentsList = document.querySelector("#github-comments-list");
-const githubCommentLink = document.querySelector("#github-comment-link");
 
 const navLinks = document.querySelectorAll(".nav-menu a");
 const sections = document.querySelectorAll("main section[id]");
@@ -28,13 +26,6 @@ const EMAILJS_CONFIG = {
 
 const ANALYTICS_CONFIG = {
   googleAnalyticsId: "G-S5WJZXEEWQ",
-};
-
-const GITHUB_COMMENTS_CONFIG = {
-  owner: "reyhanmegan86",
-  repo: "reyhanmegan86.github.io",
-  label: "testimonial",
-  maxItems: 6,
 };
 
 const FORM_COOLDOWN_MS = 30000;
@@ -117,18 +108,6 @@ const COPY = {
     serviceDesc1: "Pembuatan website profesional dari nol sesuai kebutuhan bisnis Anda.",
     serviceDesc2: "Upgrade tampilan website lama agar lebih modern, cepat, dan mobile-friendly.",
     serviceDesc3: "Perawatan rutin, perbaikan bug, dan optimasi performa secara berkala.",
-    commentsTitle: "Komentar Publik",
-    commentsIntro: "Feedback ini diambil dari GitHub Issues public agar transparan.",
-    commentsCta: "Tulis Komentar di GitHub",
-    commentsHelp: "Cara kirim komentar agar cepat diproses:",
-    commentsStep1: "1) Klik tombol \"Tulis Komentar di GitHub\".",
-    commentsStep2: "2) Isi judul dengan nama Anda, contoh: [Testimonial] Farhat.",
-    commentsStep3: "3) Tulis pesan/testimoni dengan jelas agar mudah dipahami.",
-    commentsStep4: "4) Jika label \"testimonial\" tidak terlihat, kirim saja issue, nanti admin akan menambahkan labelnya.",
-    commentsLoading: "Memuat komentar publik...",
-    commentsNoData: "Belum ada komentar publik. Jadilah yang pertama memberi feedback di GitHub.",
-    commentsFetchError: "Komentar publik belum bisa dimuat sekarang. Coba refresh lagi nanti.",
-    commentsFootnote: "Gunakan label \"testimonial\" di issue agar otomatis tampil di sini.",
     contactTitle: "Kontak Saya",
     contactIntro: "Punya ide proyek? Kirim pesan lewat form di bawah ini.",
     contactBtnWhatsapp: "Chat WhatsApp",
@@ -222,18 +201,6 @@ const COPY = {
     serviceDesc1: "Professional website development from scratch based on your business needs.",
     serviceDesc2: "Redesign your old website to be more modern, faster, and mobile-friendly.",
     serviceDesc3: "Routine maintenance, bug fixes, and regular performance optimization.",
-    commentsTitle: "Public Comments",
-    commentsIntro: "These comments come from public GitHub Issues for transparency.",
-    commentsCta: "Write Comment on GitHub",
-    commentsHelp: "How to submit your comment clearly:",
-    commentsStep1: "1) Click the \"Write Comment on GitHub\" button.",
-    commentsStep2: "2) Fill the title with your name, example: [Testimonial] Farhat.",
-    commentsStep3: "3) Write your feedback clearly so the message is easy to understand.",
-    commentsStep4: "4) If the \"testimonial\" label is not visible, just submit the issue and the admin will add the label.",
-    commentsLoading: "Loading public comments...",
-    commentsNoData: "No public comments yet. Be the first to leave feedback on GitHub.",
-    commentsFetchError: "Public comments could not be loaded right now. Please refresh later.",
-    commentsFootnote: "Use the \"testimonial\" label in issues so they appear here automatically.",
     contactTitle: "Get in Touch",
     contactIntro: "Have a project idea? Send me a message using the form below.",
     contactBtnWhatsapp: "Chat on WhatsApp",
@@ -374,141 +341,9 @@ function trackEvent(eventName, params = {}) {
   window.gtag("event", eventName, params);
 }
 
-function formatGithubDate(dateText) {
-  if (!dateText) return "";
-  const date = new Date(dateText);
-  if (Number.isNaN(date.getTime())) return "";
-  return new Intl.DateTimeFormat(currentLanguage === "id" ? "id-ID" : "en-US", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
-
-function escapeHtml(text) {
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-function buildGithubIssueUrl() {
-  const { owner, repo } = GITHUB_COMMENTS_CONFIG;
-  if (!owner || !repo) return "https://github.com/";
-  return `https://github.com/${owner}/${repo}/issues/new/choose`;
-}
-
-function renderGithubComments(items = [], state = "success") {
-  if (!githubCommentsList) return;
-
-  if (state === "loading") {
-    githubCommentsList.innerHTML = `<article class="github-comment-card"><p>${escapeHtml(getCopy("commentsLoading"))}</p></article>`;
-    return;
-  }
-
-  if (state === "error") {
-    githubCommentsList.innerHTML = `<article class="github-comment-card"><p>${escapeHtml(getCopy("commentsFetchError"))}</p></article>`;
-    return;
-  }
-
-  if (!items.length) {
-    githubCommentsList.innerHTML = `<article class="github-comment-card"><p>${escapeHtml(getCopy("commentsNoData"))}</p></article>`;
-    return;
-  }
-
-  githubCommentsList.innerHTML = items
-    .map((item) => {
-      const title = escapeHtml(item.title || "Untitled");
-      const body = escapeHtml((item.body || "").trim().slice(0, 180) || title);
-      const author = escapeHtml(item.user?.login || "GitHub User");
-      const issueUrl = item.html_url || "#";
-      const createdAt = formatGithubDate(item.created_at);
-      const authorAndDate = createdAt ? `@${author} • ${escapeHtml(createdAt)}` : `@${author}`;
-
-      return `
-        <article class="github-comment-card">
-          <h3>${title}</h3>
-          <p>${body}</p>
-          <div class="github-comment-meta">
-            <span>${authorAndDate}</span>
-            <a href="${issueUrl}" target="_blank" rel="noreferrer">GitHub</a>
-          </div>
-        </article>
-      `;
-    })
-    .join("");
-}
-
-async function loadGithubComments() {
-  const { owner, repo, label, maxItems } = GITHUB_COMMENTS_CONFIG;
-  if (!githubCommentsList) return;
-  if (!owner || !repo) {
-    renderGithubComments([], "error");
-    return;
-  }
-
-  renderGithubComments([], "loading");
-  const endpoint = `https://api.github.com/repos/${owner}/${repo}/issues?state=open&labels=${encodeURIComponent(label)}&per_page=${Math.max(1, Number(maxItems) || 6)}`;
-
-  try {
-    const response = await fetch(endpoint, {
-      headers: {
-        Accept: "application/vnd.github+json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`GitHub API status ${response.status}`);
-    }
-    const issues = await response.json();
-    const filteredIssues = Array.isArray(issues) ? issues.filter((item) => !item.pull_request) : [];
-
-    const issueCards = filteredIssues.map((issue) => ({
-      title: issue.title || "Testimonial",
-      body: issue.body || "",
-      user: issue.user,
-      html_url: issue.html_url,
-      created_at: issue.created_at,
-    }));
-
-    const commentResponses = await Promise.all(
-      filteredIssues.map(async (issue) => {
-        const commentsUrl = `https://api.github.com/repos/${owner}/${repo}/issues/${issue.number}/comments?per_page=10`;
-        const commentsResponse = await fetch(commentsUrl, {
-          headers: {
-            Accept: "application/vnd.github+json",
-          },
-        });
-        if (!commentsResponse.ok) return [];
-        const comments = await commentsResponse.json();
-        if (!Array.isArray(comments)) return [];
-        return comments.map((comment) => ({
-          title: issue.title || "Testimonial",
-          body: comment.body || "",
-          user: comment.user,
-          html_url: comment.html_url || issue.html_url,
-          created_at: comment.created_at,
-        }));
-      })
-    );
-
-    const commentCards = commentResponses.flat();
-    const mergedCards = [...issueCards, ...commentCards]
-      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-      .slice(0, Math.max(1, Number(maxItems) || 6));
-
-    renderGithubComments(mergedCards, "success");
-  } catch (error) {
-    console.error("Failed to load GitHub comments:", error);
-    renderGithubComments([], "error");
-  }
-}
-
 initAnalytics();
 applyLanguage();
 resetTypingAnimation();
-if (githubCommentLink) {
-  githubCommentLink.href = buildGithubIssueUrl();
-}
-loadGithubComments();
 
 const pressableElements = document.querySelectorAll(
   ".btn, .theme-toggle, .lang-toggle, .nav-toggle, .back-to-top, .filter-btn"
