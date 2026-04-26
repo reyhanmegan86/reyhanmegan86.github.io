@@ -120,6 +120,11 @@ const COPY = {
     commentsTitle: "Komentar Publik",
     commentsIntro: "Feedback ini diambil dari GitHub Issues public agar transparan.",
     commentsCta: "Tulis Komentar di GitHub",
+    commentsHelp: "Cara kirim komentar agar cepat diproses:",
+    commentsStep1: "1) Klik tombol \"Tulis Komentar di GitHub\".",
+    commentsStep2: "2) Isi judul dengan nama Anda, contoh: [Testimonial] Farhat.",
+    commentsStep3: "3) Tulis pesan/testimoni dengan jelas agar mudah dipahami.",
+    commentsStep4: "4) Jika label \"testimonial\" tidak terlihat, kirim saja issue, nanti admin akan menambahkan labelnya.",
     commentsLoading: "Memuat komentar publik...",
     commentsNoData: "Belum ada komentar publik. Jadilah yang pertama memberi feedback di GitHub.",
     commentsFetchError: "Komentar publik belum bisa dimuat sekarang. Coba refresh lagi nanti.",
@@ -220,6 +225,11 @@ const COPY = {
     commentsTitle: "Public Comments",
     commentsIntro: "These comments come from public GitHub Issues for transparency.",
     commentsCta: "Write Comment on GitHub",
+    commentsHelp: "How to submit your comment clearly:",
+    commentsStep1: "1) Click the \"Write Comment on GitHub\" button.",
+    commentsStep2: "2) Fill the title with your name, example: [Testimonial] Farhat.",
+    commentsStep3: "3) Write your feedback clearly so the message is easy to understand.",
+    commentsStep4: "4) If the \"testimonial\" label is not visible, just submit the issue and the admin will add the label.",
     commentsLoading: "Loading public comments...",
     commentsNoData: "No public comments yet. Be the first to leave feedback on GitHub.",
     commentsFetchError: "Public comments could not be loaded right now. Please refresh later.",
@@ -382,9 +392,9 @@ function escapeHtml(text) {
 }
 
 function buildGithubIssueUrl() {
-  const { owner, repo, label } = GITHUB_COMMENTS_CONFIG;
+  const { owner, repo } = GITHUB_COMMENTS_CONFIG;
   if (!owner || !repo) return "https://github.com/";
-  return `https://github.com/${owner}/${repo}/issues/new?labels=${encodeURIComponent(label)}&title=${encodeURIComponent("Feedback portfolio")}`;
+  return `https://github.com/${owner}/${repo}/issues/new/choose`;
 }
 
 function renderGithubComments(items = [], state = "success") {
@@ -450,7 +460,42 @@ async function loadGithubComments() {
     }
     const issues = await response.json();
     const filteredIssues = Array.isArray(issues) ? issues.filter((item) => !item.pull_request) : [];
-    renderGithubComments(filteredIssues, "success");
+
+    const issueCards = filteredIssues.map((issue) => ({
+      title: issue.title || "Testimonial",
+      body: issue.body || "",
+      user: issue.user,
+      html_url: issue.html_url,
+      created_at: issue.created_at,
+    }));
+
+    const commentResponses = await Promise.all(
+      filteredIssues.map(async (issue) => {
+        const commentsUrl = `https://api.github.com/repos/${owner}/${repo}/issues/${issue.number}/comments?per_page=10`;
+        const commentsResponse = await fetch(commentsUrl, {
+          headers: {
+            Accept: "application/vnd.github+json",
+          },
+        });
+        if (!commentsResponse.ok) return [];
+        const comments = await commentsResponse.json();
+        if (!Array.isArray(comments)) return [];
+        return comments.map((comment) => ({
+          title: issue.title || "Testimonial",
+          body: comment.body || "",
+          user: comment.user,
+          html_url: comment.html_url || issue.html_url,
+          created_at: comment.created_at,
+        }));
+      })
+    );
+
+    const commentCards = commentResponses.flat();
+    const mergedCards = [...issueCards, ...commentCards]
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .slice(0, Math.max(1, Number(maxItems) || 6));
+
+    renderGithubComments(mergedCards, "success");
   } catch (error) {
     console.error("Failed to load GitHub comments:", error);
     renderGithubComments([], "error");

@@ -624,6 +624,31 @@ textarea {
   color: var(--muted);
 }
 
+.comments-cta-box {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: end;
+}
+
+.comments-help {
+  margin: 0;
+  max-width: 320px;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.comments-steps {
+  margin: 0;
+  max-width: 420px;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  display: grid;
+  gap: 0.3rem;
+  text-align: left;
+}
+
 .comments-footnote {
   margin-top: 0.9rem;
   font-size: 0.92rem;
@@ -994,6 +1019,19 @@ body.language-switching #typing-text {
 
   .hero-actions {
     flex-wrap: wrap;
+  }
+
+  .comments-cta-box {
+    justify-items: start;
+  }
+
+  .comments-help {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .comments-steps {
+    max-width: 100%;
   }
 
   .hero-actions .btn {
